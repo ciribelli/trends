@@ -7,6 +7,6 @@ app = func.FunctionApp()
               use_monitor=False) 
 def etl_func(myTimer: func.TimerRequest) -> None:
     if myTimer.past_due:
-        logging.info('The timer is past due!')
+        logging.info('Log de teste')
 
-    logging.info('Python timer trigger function executed.')
+    logging.info('Python timer trigger function executed.________________')
