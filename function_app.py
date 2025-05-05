@@ -1,5 +1,6 @@
 import logging
 import azure.functions as func
+import os
 
 app = func.FunctionApp()
 
@@ -9,4 +10,6 @@ def etl_func(myTimer: func.TimerRequest) -> None:
     if myTimer.past_due:
         logging.info('The timer is past due!')
 
-    logging.info('Python timer trigger function executed.')
+    wapp_token = os.getenv('WHATSAPP_TOKEN')
+    logging.info('Teste de leitura variável de ambiente')
+    logging.info(wapp_token)
