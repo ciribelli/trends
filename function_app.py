@@ -1,11 +1,11 @@
 import logging
 import requests
 import azure.functions as func
+import os
 
 app = func.FunctionApp()
 
-def send_wapp_msg(phone_number_id, from_number, coletor):
-    wapp_token = os.environ['WHATSAPP_TOKEN']
+def send_wapp_msg(phone_number_id, from_number, coletor, wapp_token):
     fb_url = f"https://graph.facebook.com/v20.0/{phone_number_id}/messages?access_token={wapp_token}"
     payload = {
         "messaging_product": "whatsapp",
@@ -23,8 +23,10 @@ def etl_func(myTimer: func.TimerRequest) -> None:
     if myTimer.past_due:
         logging.info('Log de teste')
 
+    wapp_token = os.environ.get('WHATSAPP_TOKEN')
+    logging.info(wapp_token)
     logging.info('Rodando a aplicação!')
-    a = send_wapp_msg("233405413182343","5521983163900","_mensagem teste api response pela Azure!_")
+    a = send_wapp_msg("233405413182343","5521983163900","_mensagem teste api response pela Azure!_", wapp_token)
     logging.info(a.text)
 
 
