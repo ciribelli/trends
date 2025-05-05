@@ -27,4 +27,4 @@ def etl_func(myTimer: func.TimerRequest) -> None:
 
     wapp_token = os.getenv('WHATSAPP_TOKEN')
     logging.info('Executando envio de mensagem via WhatsApp...')
-    a = send_wapp_msg("233405413182343","5521983163900","_mensagem teste api response from Azure_", wapp_token)
+    send_wapp_msg("233405413182343","5521983163900","_mensagem teste api response from Azure_", wapp_token)
