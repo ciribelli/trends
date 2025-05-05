@@ -1,15 +1,30 @@
 import logging
 import azure.functions as func
 import os
+import requests
 
 app = func.FunctionApp()
 
+def send_wapp_msg(phone_number_id, from_number, coletor, wapp_token):
+    url = f"https://graph.facebook.com/v20.0/{phone_number_id}/messages?access_token={wapp_token}"
+    payload = {
+        "messaging_product": "whatsapp",
+        "to": from_number,
+        "text": {"body": "✅ Mensagem de teste enviada pela Azure Function!"}
+    }
+    headers = {"Content-Type": "application/json"}
+
+    response = requests.post(url, json=payload, headers=headers)
+
+    logging.info(f"Status code: {response.status_code}")
+    logging.info(f"Response: {response.text}")
+
 @app.timer_trigger(schedule="0 0 8-20 * * *", arg_name="myTimer", run_on_startup=False,
-              use_monitor=False) 
+              use_monitor=False)
 def etl_func(myTimer: func.TimerRequest) -> None:
     if myTimer.past_due:
         logging.info('The timer is past due!')
 
     wapp_token = os.getenv('WHATSAPP_TOKEN')
-    logging.info('Teste de leitura variável de ambiente')
-    logging.info(wapp_token)
+    logging.info('Executando envio de mensagem via WhatsApp...')
+    a = send_wapp_msg("233405413182343","5521983163900","_mensagem teste api response from Azure_", wapp_token)
