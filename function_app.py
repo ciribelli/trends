@@ -10,7 +10,7 @@ def send_wapp_msg(phone_number_id, from_number, coletor, wapp_token):
     payload = {
         "messaging_product": "whatsapp",
         "to": from_number,
-        "text": {"body": "✅ Mensagem de teste enviada pela Azure Function!_____________"}
+        "text": {"body": "✅ Mensagem de teste enviada pela Azure Function!______aaaa_____"}
     }
     headers = {"Content-Type": "application/json"}
 
