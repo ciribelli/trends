@@ -2,7 +2,7 @@
 # More GitHub Actions for Azure: https://github.com/Azure/actions
 # More info on Python, GitHub Actions, and Azure Functions: https://aka.ms/python-webapps-actions
 
-name: Build and deploy Python project to Azure Function App - trendsforpassis
+name: Build and deploy Python project to Azure Function App - trends4passis
 
 on:
   push:
@@ -70,4 +70,4 @@ jobs:
           app-name: 'trends4passis'
           slot-name: 'Production'
           package: ${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_FD6D0775018E44369900950424BA5F4D }}
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_8C4B3113AB914DCEAD073E1EF853CCF3 }}
