@@ -2,6 +2,7 @@ import logging
 import azure.functions as func
 import os
 import requests
+import grok
 
 app = func.FunctionApp()
 
@@ -10,7 +11,7 @@ def send_wapp_msg(phone_number_id, from_number, coletor, wapp_token):
     payload = {
         "messaging_product": "whatsapp",
         "to": from_number,
-        "text": {"body": "✅ Mensagem de teste enviada pela Azure Function! Testando repositorio via Macbook"}
+        "text": {"body": coletor}
     }
     headers = {"Content-Type": "application/json"}
 
@@ -19,12 +20,14 @@ def send_wapp_msg(phone_number_id, from_number, coletor, wapp_token):
     logging.info(f"Status code: {response.status_code}")
     logging.info(f"Response: {response.text}")
 
-@app.timer_trigger(schedule="0 0 8-20 * * *", arg_name="myTimer", run_on_startup=False,
+@app.timer_trigger(schedule="0 0 7-9 * * *", arg_name="myTimer", run_on_startup=False,
               use_monitor=False)
 def etl_func(myTimer: func.TimerRequest) -> None:
     if myTimer.past_due:
         logging.info('The timer is past due!')
 
     wapp_token = os.getenv('WHATSAPP_TOKEN')
+    grok_token = os.getenv('XAI_API_KEY')
     logging.info('Executando envio de mensagem via WhatsApp...')
-    send_wapp_msg("233405413182343","5521983163900","_mensagem teste api response from Azure_", wapp_token)
+    resultado_busca = grok.consulta_grok(grok_token)
+    send_wapp_msg("233405413182343","5521983163900",resultado_busca, wapp_token)
