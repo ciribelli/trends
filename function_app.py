@@ -29,6 +29,5 @@ def etl_func(myTimer: func.TimerRequest) -> None:
     wapp_token = os.getenv('WHATSAPP_TOKEN')
     grok_token = os.getenv('XAI_API_KEY')
     logging.info('Executando envio de mensagem via WhatsApp...')
-    #resultado_busca = grok.consulta_grok(grok_token)
-    resultado_busca = "teste"
+    resultado_busca = grok.consulta_grok(grok_token)
     send_wapp_msg("233405413182343","5521983163900",resultado_busca, wapp_token)

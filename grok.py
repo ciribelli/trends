@@ -26,9 +26,7 @@ def consulta_grok(token):
                 "role": "user",
                 "content": ("Faça uma atualização geral sobre as novidades de tecnologia e inovações "
                             "que estão acontecendo no mundo, incluindo tendências emergentes, "
-                            "avanços em inteligência artificial, computação quântica, "
-                            "tecnologias sustentáveis e inovações em hardware e software."
-                            "Tendo novidades sobre IA Generativa, traga enquanto destaque.")
+                            "avanços em inteligência artificial, especialmente IA Generativa multimodal (texto, imagem, vídeos). Não tendo novidades, simplesmente diga 'Nenhuma novidade'.")
             }
         ]
     }
