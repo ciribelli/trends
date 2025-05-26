@@ -1,12 +1,8 @@
 import requests
-
+import logging
 
 def consulta_grok(token):
-    """
-    Função para consultar a API Grok e obter informações em tempo real
-    """
-    load_dotenv() 
-
+    logging.info('entrei na funcao do grok...')
     url = "https://api.x.ai/v1/chat/completions"
 
     headers = {
@@ -19,12 +15,12 @@ def consulta_grok(token):
         "model": "grok-3-latest",
         "search_parameters": {
             "mode": "auto",
-            "return_citations": True
+            "max_search_results": 5
         },
         "messages": [
             {
                 "role": "system",
-                "content": "Você é um assistente virtual prestativo e objetivo que suporta com informações em tempo real - concentre-se em fornecer atualicações das últimas 24 horas."
+                "content": "Você é um assistente virtual prestativo e objetivo que suporta com informações em tempo real - concentre-se em fornecer atualicações das últimas 24 horas. Mas seja breve e direto ao ponto, evitando informações desnecessárias. Sua resposta nao pode ser maior que 2000 caracteres."
             },
             {
                 "role": "user",
@@ -38,5 +34,6 @@ def consulta_grok(token):
     }
 
     response = requests.post(url, headers=headers, json=payload)
+    logging.info(response.json())
     return response.json()['choices'][0]['message']['content']
 
