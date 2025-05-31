@@ -20,8 +20,7 @@ def send_wapp_msg(phone_number_id, from_number, coletor, wapp_token):
     logging.info(f"Status code: {response.status_code}")
     logging.info(f"Response: {response.text}")
 
-@app.timer_trigger(schedule="0 0 9-9 * * *", arg_name="myTimer", run_on_startup=False,
-              use_monitor=False)
+@app.timer_trigger(schedule="0 0 9-9 * * *", arg_name="myTimer", run_on_startup=False, use_monitor=False)
 def etl_func(myTimer: func.TimerRequest) -> None:
     if myTimer.past_due:
         logging.info('The timer is past due!')
@@ -31,12 +30,3 @@ def etl_func(myTimer: func.TimerRequest) -> None:
     logging.info('Executando envio de mensagem via WhatsApp...')
     resultado_busca = grok.consulta_grok(grok_token)
     send_wapp_msg("233405413182343","5521983163900",resultado_busca, wapp_token)
-
-
-# ⏲️ Timer a cada 30 minutos
-@app.timer_trigger(schedule="0 */15 * * * *", arg_name="verificacaoTimer", run_on_startup=False, use_monitor=False)
-def verificar_compromissos(verificacaoTimer: func.TimerRequest) -> None:
-    if verificacaoTimer.past_due:
-        logging.info('The timer is past due!')
-
-    logging.info('Executando verificação de compromissos no Heroku...')
