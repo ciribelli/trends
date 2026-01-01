@@ -51,4 +51,4 @@ def verificar_compromissos(verificacaoTimer: func.TimerRequest) -> None:
         logging.warning("The timer is past due!")
 
     logging.info("Executando verificação de compromissos no Heroku...")
-    # Adicione lógica aqui, se necessário
+
