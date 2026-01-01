@@ -40,14 +40,14 @@ def verificar_compromissos(verificacaoTimer: func.TimerRequest) -> None:
     # Adicione lógica aqui, se necessário
 
 # para inferencias ML:
-@app.timer_trigger(
-    schedule="0 */20 * * * *",
-    arg_name="healthCheckTimer",
-    run_on_startup=False,
-    use_monitor=False
-)
-def health_check_trends4passis(healthCheckTimer: func.TimerRequest) -> None:
-    if healthCheckTimer.past_due:
-        logging.warning("ML está rodando___The timer is past due!")
+# @app.timer_trigger(
+#     schedule="0 */20 * * * *",
+#     arg_name="healthCheckTimer",
+#     run_on_startup=False,
+#     use_monitor=False
+# )
+# def health_check_trends4passis(healthCheckTimer: func.TimerRequest) -> None:
+#     if healthCheckTimer.past_due:
+#         logging.warning("ML está rodando___The timer is past due!")
 
-    logging.info("ML está rodando")
+#     logging.info("ML está rodando")
