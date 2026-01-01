@@ -48,6 +48,6 @@ def verificar_compromissos(verificacaoTimer: func.TimerRequest) -> None:
 )
 def health_check_trends4passis(healthCheckTimer: func.TimerRequest) -> None:
     if healthCheckTimer.past_due:
-        logging.warning("ML está rodando")
+        logging.warning("ML está rodando___The timer is past due!")
 
     logging.info("ML está rodando")
