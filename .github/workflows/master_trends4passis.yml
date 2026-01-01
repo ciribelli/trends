@@ -53,7 +53,10 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     needs: build
-    
+    permissions:
+      id-token: write #This is required for requesting the JWT
+      contents: read #This is required for actions/checkout
+
     steps:
       - name: Download artifact from build job
         uses: actions/download-artifact@v4
@@ -61,8 +64,17 @@ jobs:
           name: python-app
 
       - name: Unzip artifact for deployment
-        run: unzip release.zip     
+        run: |
+          unzip release.zip
+          rm release.zip
         
+      - name: Login to Azure
+        uses: azure/login@v2
+        with:
+          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_01547166BA9C4A02AAE4C0B4A73F90F6 }}
+          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_CC4BC22EC55D4A559F397F810623AFA7 }}
+          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_3C6AAF33382D48CBABBD67C01CC1E38E }}
+
       - name: 'Deploy to Azure Functions'
         uses: Azure/functions-action@v1
         id: deploy-to-function
@@ -70,4 +82,4 @@ jobs:
           app-name: 'trends4passis'
           slot-name: 'Production'
           package: ${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_8C4B3113AB914DCEAD073E1EF853CCF3 }}
+          
