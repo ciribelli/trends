@@ -41,13 +41,14 @@ def etl_func(myTimer: func.TimerRequest) -> None:
 
 
 @app.timer_trigger(
-    schedule="0 */20 * * * *",
-    arg_name="inferenciaTimer",
+    schedule="0 */30 * * * *",
+    arg_name="verificacaoTimer",
     run_on_startup=False,
     use_monitor=False,
 )
-def realizar_inferencia(inferenciaTimer: func.TimerRequest) -> None:
-    if inferenciaTimer.past_due:
+def verificar_compromissos(verificacaoTimer: func.TimerRequest) -> None:
+    if verificacaoTimer.past_due:
         logging.warning("The timer is past due!")
 
-    logging.info("Timer disparado: realizando inferência...")
+    logging.info("Executando verificação de compromissos no Heroku...")
+
