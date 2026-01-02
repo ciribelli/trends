@@ -40,15 +40,23 @@ def etl_func(myTimer: func.TimerRequest) -> None:
     send_wapp_msg("233405413182343", "5521983163900", resultado_busca, wapp_token)
 
 
-@app.timer_trigger(
-    schedule="0 */30 * * * *",
-    arg_name="verificacaoTimer",
-    run_on_startup=False,
-    use_monitor=False,
-)
 def verificar_compromissos(verificacaoTimer: func.TimerRequest) -> None:
     if verificacaoTimer.past_due:
         logging.warning("The timer is past due!")
 
-    logging.info("Executando verificação de compromissos no Heroku...")
+    url = "https://passisml.onrender.com/gera_inferencia_agendada"
+
+    try:
+        logging.info("Chamando endpoint de inferência no Render...")
+        response = requests.post(url, timeout=30)
+
+        logging.info(f"Status code: {response.status_code}")
+
+        if response.ok:
+            logging.info(f"Resposta da inferência: {response.json()}")
+        else:
+            logging.error(f"Erro na inferência: {response.text}")
+
+    except Exception as e:
+        logging.exception(f"Falha ao chamar endpoint de inferência: {e}")
 
