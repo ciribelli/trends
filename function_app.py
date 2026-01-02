@@ -62,4 +62,18 @@ def realizar_inferencia(ml_inferenciaTimer: func.TimerRequest) -> None:
     if ml_inferenciaTimer.past_due:
         logging.warning("The timer is past due!")
 
-    logging.info("Executando inferência agendada...")
+    url = "https://passisml.onrender.com/gera_inferencia_agendada"
+
+    try:
+        logging.info("Chamando endpoint de inferência no Render...")
+        response = requests.post(url, timeout=30)
+
+        logging.info(f"Status code: {response.status_code}")
+
+        if response.ok:
+            logging.info(f"Resposta da inferência: {response.json()}")
+        else:
+            logging.error(f"Erro na inferência: {response.text}")
+
+    except Exception as e:
+        logging.exception(f"Falha ao chamar endpoint de inferência: {e}")
