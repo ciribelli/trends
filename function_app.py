@@ -52,3 +52,14 @@ def verificar_compromissos(verificacaoTimer: func.TimerRequest) -> None:
 
     logging.info("Executando verificação de compromissos no Heroku...")
 
+@app.timer_trigger(
+    schedule="0 */20 * * * *",
+    arg_name="ml_inferenciaTimer",
+    run_on_startup=False,
+    use_monitor=False,
+)
+def realizar_inferencia(ml_inferenciaTimer: func.TimerRequest) -> None:
+    if ml_inferenciaTimer.past_due:
+        logging.warning("The timer is past due!")
+
+    logging.info("Executando inferência agendada...")
