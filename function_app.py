@@ -108,3 +108,45 @@ def realizar_inferencia(ml_inferenciaTimer: func.TimerRequest) -> None:
 
     except Exception as e:
         logging.exception(f"Falha ao chamar endpoint de inferência: {e}")
+
+
+@app.timer_trigger(
+    schedule="0 0 9 * * SUN",
+    arg_name="weeklyReportTimer",
+    run_on_startup=False,
+    use_monitor=False,
+)
+def relatorio_semanal_trigger(weeklyReportTimer: func.TimerRequest) -> None:
+    if weeklyReportTimer.past_due:
+        logging.warning("The weekly report timer is past due!")
+
+    logging.info("Executando geração e envio do relatório semanal...")
+    
+    heroku_url = os.getenv("HEROKU_APP_URL")
+    cron_secret = os.getenv("CRON_SECRET")
+    phone_number_id = os.getenv("WHATSAPP_PHONE_NUMBER_ID", "233405413182343")
+    recipient = os.getenv("WHATSAPP_PHONE_NUMBER", "5521983163900")
+    
+    if not heroku_url:
+        logging.error("HEROKU_APP_URL environment variable is not set.")
+        return
+
+    url = f"{heroku_url.rstrip('/')}/v1/weekly-report"
+    headers = {}
+    if cron_secret:
+        headers["Authorization"] = cron_secret
+
+    payload = {
+        "phone_number_id": phone_number_id,
+        "recipient": recipient
+    }
+
+    try:
+        response = requests.post(url, json=payload, headers=headers, timeout=60)
+        logging.info(f"Status code Heroku: {response.status_code}")
+        if response.ok:
+            logging.info(f"Relatório semanal processado com sucesso: {response.text}")
+        else:
+            logging.error(f"Erro retornado pelo Heroku ao processar relatório semanal: {response.status_code} - {response.text}")
+    except Exception as e:
+        logging.exception(f"Falha de conexão com o Heroku para processamento do relatório semanal: {e}")
