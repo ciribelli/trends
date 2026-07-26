@@ -26,7 +26,7 @@ def consulta_grok(token):
             },
             {
                 "role": "user",
-                "content": "Resuma, de forma objetiva, as principais novidades em tecnologia e inovação nas últimas 24 horas. Foque em IA generativa multimodal, tendências emergentes, descobertas científicas e movimentações de big techs. Se não houver novidades relevantes, responda apenas: 'Nenhuma novidade'."
+                "content": "Resuma, de forma objetiva, as principais novidades em tecnologia e inovação nas últimas 24 horas. Foque em IA generativa, harness, framework open-source de AI agents, novos gadgets ligados a IA, descobertas científicas e movimentações de big techs. Se não houver novidades relevantes, responda apenas: 'Nenhuma novidade'."
             }
         ]
     }
