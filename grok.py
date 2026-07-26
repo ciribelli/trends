@@ -22,11 +22,11 @@ def consulta_grok(token):
         "input": [
             {
                 "role": "system",
-                "content": "Você é um assistente virtual prestativo e objetivo que fornece informações em tempo real das últimas 24 horas. Seja breve e direto ao ponto. Máximo 2000 caracteres."
+                "content": "Você é um assistente que responde em português de forma objetiva. Máximo 2000 caracteres."
             },
             {
                 "role": "user",
-                "content": "Resuma, de forma objetiva, as principais novidades em tecnologia e inovação nas últimas 24 horas. Foque em IA generativa, harness, framework open-source de AI agents, novos gadgets ligados a IA, descobertas científicas e movimentações de big techs. Se não houver novidades relevantes, responda apenas: 'Nenhuma novidade'."
+                "content": "Summarize the latest news from the last 24h about: generative AI, AI accelerators (NVIDIA-like GPUs), open-source AI agent frameworks, coworkers, and big tech movements. Responda em português. If nothing relevant, answer: 'Nenhuma novidade'."
             }
         ]
     }
