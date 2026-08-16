@@ -111,10 +111,10 @@ def realizar_inferencia(ml_inferenciaTimer: func.TimerRequest) -> None:
 
 
 @app.timer_trigger(
-    schedule="0 0 9 * * SUN",
+    schedule="0 0 12 * * SUN",
     arg_name="weeklyReportTimer",
     run_on_startup=False,
-    use_monitor=False,
+    use_monitor=True,
 )
 def relatorio_semanal_trigger(weeklyReportTimer: func.TimerRequest) -> None:
     if weeklyReportTimer.past_due:
